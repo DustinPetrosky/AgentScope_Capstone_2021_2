@@ -11,8 +11,7 @@ namespace AgentScope_Capstone_2021_2.Controllers
         // GET: Review
         public ActionResult Index()
         {
-            return View(); //test
-            Console.WriteLine();
+            return View(); 
         }
     }
 }
