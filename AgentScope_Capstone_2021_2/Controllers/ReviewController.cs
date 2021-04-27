@@ -12,6 +12,7 @@ namespace AgentScope_Capstone_2021_2.Controllers
         public ActionResult Index()
         {
             return View(); //test
+            Console.WriteLine();
         }
     }
 }
