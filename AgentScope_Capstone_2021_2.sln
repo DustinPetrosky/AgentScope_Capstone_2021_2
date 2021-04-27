@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentScope_Capstone_2021_2", "AgentScope_Capstone_2021_2\AgentScope_Capstone_2021_2.csproj", "{DCE11492-AC6A-4AE4-85BF-D0A4864CA6E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCE11492-AC6A-4AE4-85BF-D0A4864CA6E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE11492-AC6A-4AE4-85BF-D0A4864CA6E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE11492-AC6A-4AE4-85BF-D0A4864CA6E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE11492-AC6A-4AE4-85BF-D0A4864CA6E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E55D12D6-5E3E-4361-8A2E-CA23F8B54D55}
+	EndGlobalSection
+EndGlobal

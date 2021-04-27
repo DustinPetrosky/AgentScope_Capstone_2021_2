@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CapstoneProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AgentAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PhoneCell" Type="varchar" MaxLength="24" />
+          <Property Name="PhoneOffice" Type="varchar" MaxLength="24" />
+          <Property Name="Company" Type="nvarchar" MaxLength="128" />
+          <Property Name="StreetNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SuiteNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="StateProv" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="AboutMeText" Type="nvarchar(max)" />
+          <Property Name="YearsOfExp" Type="smallint" Nullable="false" />
+          <Property Name="WebsiteLink" Type="varchar(max)" />
+          <Property Name="FacebookLink" Type="varchar(max)" />
+          <Property Name="TwitterLink" Type="varchar(max)" />
+          <Property Name="InstagramLink" Type="varchar(max)" />
+          <Property Name="LinkedInLink" Type="varchar(max)" />
+          <Property Name="RealEstateLicense" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="LicensedState" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProfileImage" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="AgentHomeSold">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgentId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StreetNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="StateProv" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="DateSold" Type="date" Nullable="false" />
+          <Property Name="ImageFile" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="AgentReviews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgentId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ReviewerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Rating" Type="smallint" Nullable="false" />
+          <Property Name="BodyText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateOfReview" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReviewerAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="StateProv" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="48" Nullable="false" />
+          <Property Name="IPAddress" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__AgentHome__Agent__267ABA7A">
+          <End Role="AgentAccount" Type="Self.AgentAccount" Multiplicity="1" />
+          <End Role="AgentHomeSold" Type="Self.AgentHomeSold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AgentHomeSold">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgentRevi__Agent__2B3F6F97">
+          <End Role="AgentAccount" Type="Self.AgentAccount" Multiplicity="1" />
+          <End Role="AgentReviews" Type="Self.AgentReviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AgentReviews">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgentRevi__Revie__2C3393D0">
+          <End Role="ReviewerAccount" Type="Self.ReviewerAccount" Multiplicity="1" />
+          <End Role="AgentReviews" Type="Self.AgentReviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReviewerAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AgentReviews">
+              <PropertyRef Name="ReviewerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CapstoneProjectModelStoreContainer">
+          <EntitySet Name="AgentAccount" EntityType="Self.AgentAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentHomeSold" EntityType="Self.AgentHomeSold" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentReviews" EntityType="Self.AgentReviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReviewerAccount" EntityType="Self.ReviewerAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AgentHome__Agent__267ABA7A" Association="Self.FK__AgentHome__Agent__267ABA7A">
+            <End Role="AgentAccount" EntitySet="AgentAccount" />
+            <End Role="AgentHomeSold" EntitySet="AgentHomeSold" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgentRevi__Agent__2B3F6F97" Association="Self.FK__AgentRevi__Agent__2B3F6F97">
+            <End Role="AgentAccount" EntitySet="AgentAccount" />
+            <End Role="AgentReviews" EntitySet="AgentReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgentRevi__Revie__2C3393D0" Association="Self.FK__AgentRevi__Revie__2C3393D0">
+            <End Role="ReviewerAccount" EntitySet="ReviewerAccount" />
+            <End Role="AgentReviews" EntitySet="AgentReviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CapstoneProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AgentAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneCell" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneOffice" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StreetNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StreetName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SuiteNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateProv" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AboutMeText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YearsOfExp" Type="Int16" Nullable="false" />
+          <Property Name="WebsiteLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FacebookLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TwitterLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InstagramLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LinkedInLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RealEstateLicense" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LicensedState" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProfileImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AgentHomeSolds" Relationship="Self.FK__AgentHome__Agent__267ABA7A" FromRole="AgentAccount" ToRole="AgentHomeSold" />
+          <NavigationProperty Name="AgentReviews" Relationship="Self.FK__AgentRevi__Agent__2B3F6F97" FromRole="AgentAccount" ToRole="AgentReviews" />
+        </EntityType>
+        <EntityType Name="AgentHomeSold">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StreetNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StreetName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateProv" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="DateSold" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ImageFile" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AgentAccount" Relationship="Self.FK__AgentHome__Agent__267ABA7A" FromRole="AgentHomeSold" ToRole="AgentAccount" />
+        </EntityType>
+        <EntityType Name="AgentReview">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReviewerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Int16" Nullable="false" />
+          <Property Name="BodyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfReview" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AgentAccount" Relationship="Self.FK__AgentRevi__Agent__2B3F6F97" FromRole="AgentReviews" ToRole="AgentAccount" />
+          <NavigationProperty Name="ReviewerAccount" Relationship="Self.FK__AgentRevi__Revie__2C3393D0" FromRole="AgentReviews" ToRole="ReviewerAccount" />
+        </EntityType>
+        <EntityType Name="ReviewerAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateProv" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="48" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AgentReviews" Relationship="Self.FK__AgentRevi__Revie__2C3393D0" FromRole="ReviewerAccount" ToRole="AgentReviews" />
+        </EntityType>
+        <Association Name="FK__AgentHome__Agent__267ABA7A">
+          <End Role="AgentAccount" Type="Self.AgentAccount" Multiplicity="1" />
+          <End Role="AgentHomeSold" Type="Self.AgentHomeSold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AgentHomeSold">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgentRevi__Agent__2B3F6F97">
+          <End Role="AgentAccount" Type="Self.AgentAccount" Multiplicity="1" />
+          <End Role="AgentReviews" Type="Self.AgentReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AgentReviews">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgentRevi__Revie__2C3393D0">
+          <End Role="ReviewerAccount" Type="Self.ReviewerAccount" Multiplicity="1" />
+          <End Role="AgentReviews" Type="Self.AgentReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReviewerAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AgentReviews">
+              <PropertyRef Name="ReviewerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CapstoneProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AgentAccounts" EntityType="Self.AgentAccount" />
+          <EntitySet Name="AgentHomeSolds" EntityType="Self.AgentHomeSold" />
+          <EntitySet Name="AgentReviews" EntityType="Self.AgentReview" />
+          <EntitySet Name="ReviewerAccounts" EntityType="Self.ReviewerAccount" />
+          <AssociationSet Name="FK__AgentHome__Agent__267ABA7A" Association="Self.FK__AgentHome__Agent__267ABA7A">
+            <End Role="AgentAccount" EntitySet="AgentAccounts" />
+            <End Role="AgentHomeSold" EntitySet="AgentHomeSolds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgentRevi__Agent__2B3F6F97" Association="Self.FK__AgentRevi__Agent__2B3F6F97">
+            <End Role="AgentAccount" EntitySet="AgentAccounts" />
+            <End Role="AgentReviews" EntitySet="AgentReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgentRevi__Revie__2C3393D0" Association="Self.FK__AgentRevi__Revie__2C3393D0">
+            <End Role="ReviewerAccount" EntitySet="ReviewerAccounts" />
+            <End Role="AgentReviews" EntitySet="AgentReviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CapstoneProjectModelStoreContainer" CdmEntityContainer="CapstoneProjectEntities">
+          <EntitySetMapping Name="AgentAccounts">
+            <EntityTypeMapping TypeName="CapstoneProjectModel.AgentAccount">
+              <MappingFragment StoreEntitySet="AgentAccount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneCell" ColumnName="PhoneCell" />
+                <ScalarProperty Name="PhoneOffice" ColumnName="PhoneOffice" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="SuiteNumber" ColumnName="SuiteNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProv" ColumnName="StateProv" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="AboutMeText" ColumnName="AboutMeText" />
+                <ScalarProperty Name="YearsOfExp" ColumnName="YearsOfExp" />
+                <ScalarProperty Name="WebsiteLink" ColumnName="WebsiteLink" />
+                <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
+                <ScalarProperty Name="TwitterLink" ColumnName="TwitterLink" />
+                <ScalarProperty Name="InstagramLink" ColumnName="InstagramLink" />
+                <ScalarProperty Name="LinkedInLink" ColumnName="LinkedInLink" />
+                <ScalarProperty Name="RealEstateLicense" ColumnName="RealEstateLicense" />
+                <ScalarProperty Name="LicensedState" ColumnName="LicensedState" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgentHomeSolds">
+            <EntityTypeMapping TypeName="CapstoneProjectModel.AgentHomeSold">
+              <MappingFragment StoreEntitySet="AgentHomeSold">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProv" ColumnName="StateProv" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="DateSold" ColumnName="DateSold" />
+                <ScalarProperty Name="ImageFile" ColumnName="ImageFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgentReviews">
+            <EntityTypeMapping TypeName="CapstoneProjectModel.AgentReview">
+              <MappingFragment StoreEntitySet="AgentReviews">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="ReviewerId" ColumnName="ReviewerId" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
+                <ScalarProperty Name="DateOfReview" ColumnName="DateOfReview" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewerAccounts">
+            <EntityTypeMapping TypeName="CapstoneProjectModel.ReviewerAccount">
+              <MappingFragment StoreEntitySet="ReviewerAccount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProv" ColumnName="StateProv" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

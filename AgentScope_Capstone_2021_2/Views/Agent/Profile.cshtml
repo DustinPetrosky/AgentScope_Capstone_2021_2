@@ -1,0 +1,144 @@
+﻿@model AgentScope_Capstone_2021_2.Models.AgentAccount
+
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card mt-4 align-items-center">
+                <img class="card-img-top img-fluid" src="https://via.placeholder.com/150" alt="Profile Photo">
+                <div>
+                    <h3> Agent Name</h3>
+                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                    4.0
+                </div>
+            </div>
+            <div class="card">
+                Brokerage: RealEstateBrokerage
+
+                <p><i class="fa fa-map-marker w3-xxlarge w3-text-red"></i>New York City</p>
+
+                <div class="w3-panel w3-large w3-center">
+                    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                    <i class="fa fa-instagram w3-hover-opacity"></i>
+                    <i class="fa fa-snapchat w3-hover-opacity"></i>
+                    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                    <i class="fa fa-twitter w3-hover-opacity"></i>
+                    <i class="fa fa-linkedin w3-hover-opacity"></i>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+            <div class="card mt-4">
+                <h3 class="card-title text-center"> About Me</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.
+                </p>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Recently Sold Homes</h3>
+                    <!-- First Photo Grid-->
+                    <div class="w3-row-padding">
+                        <div class="w3-third w3-container w3-margin-bottom">
+                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
+                            <div class="w3-container w3-white">
+                                <p><b>$xxx,xxx</b></p>
+                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                            </div>
+                        </div>
+                        <div class="w3-third w3-container w3-margin-bottom">
+                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
+                            <div class="w3-container w3-white">
+                                <p><b>$xxx,xxx</b></p>
+                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                            </div>
+                        </div>
+                        <div class="w3-third w3-container">
+                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
+                            <div class="w3-container w3-white">
+                                <p><b>$xxx,xxx</b></p>
+                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Photo Grid-->
+                    <div class="w3-row-padding">
+                        <div class="w3-third w3-container w3-margin-bottom">
+                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
+                            <div class="w3-container w3-white">
+                                <p><b>$xxx,xxx</b></p>
+                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                            </div>
+                        </div>
+                        <div class="w3-third w3-container w3-margin-bottom">
+                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
+                            <div class="w3-container w3-white">
+                                <p><b>$xxx,xxx</b></p>
+                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                            </div>
+                        </div>
+                        <div class="w3-third w3-container">
+                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
+                            <div class="w3-container w3-white">
+                                <p><b>$xxx,xxx</b></p>
+                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="w3-center w3-padding-32">
+                        <div class="w3-bar">
+                            <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+                            <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+                            <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+                            <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+                            <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+                            <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Agent Reviews
+                </div>
+                <div class="card-body">
+                    <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <a href="#" class="btn btn-success">Leave a Review</a>
+                </div>
+            </div>
+            <!-- /.card -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+
+</div>
+
