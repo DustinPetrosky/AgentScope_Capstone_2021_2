@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AgentScope_Capstone_2021_2.Models;
+using System.IO;
 
 namespace AgentScope_Capstone_2021_2.Controllers
 {
@@ -51,6 +52,9 @@ namespace AgentScope_Capstone_2021_2.Controllers
                 _userManager = value;
             }
         }
+
+        CapstoneProjectEntities db = new CapstoneProjectEntities();
+
 
         //
         // GET: /Account/Login
@@ -134,10 +138,10 @@ namespace AgentScope_Capstone_2021_2.Controllers
             }
         }
 
-        //
+        
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult RegisterAgent()
         {
             return View();
         }
@@ -147,21 +151,109 @@ namespace AgentScope_Capstone_2021_2.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> RegisterAgent(RegisterAgentViewModel model, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid)
+            var isValid = ModelState.IsValid;
+            var hasFile = uploadImage != null && uploadImage.ContentLength > 0;
+            if (ModelState.IsValid && hasFile) {
+                if (!uploadImage.ContentType.StartsWith("image/")) {
+                    isValid = false;
+                    ModelState.AddModelError("ProfileImage", "Invalid file");
+                }
+            }
+            if (isValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Agent");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    string imageFileName = null;
+                    if(hasFile) {
+                        var folderPath = Server.MapPath("~/UserContent");
+                        var extentionIndex = uploadImage.FileName.LastIndexOf(".");
+                        var imageExtention = uploadImage.FileName.Substring(extentionIndex);
+                        imageFileName = user.Id + imageExtention;
+                        var imageFilePath = Path.Combine(folderPath, imageFileName);
+                        uploadImage.SaveAs(imageFilePath);
+                    }
+
+
+                    var agent = new AgentAccount {
+                        AboutMeText = model.AboutMeText,
+                        City = model.City,
+                        Company = model.Company,
+                        Email = model.Email,
+                        FacebookLink = model.FacebookLink,
+                        FirstName = model.FirstName,
+                        InstagramLink = model.InstagramLink,
+                        LastName = model.LastName,
+                        LicensedState = model.LicensedState,
+                        LinkedInLink = model.LinkedInLink,
+                        PhoneCell = model.PhoneCell,
+                        PhoneOffice = model.PhoneOffice,
+                        ProfileImage = imageFileName,
+                        RealEstateLicense = model.RealEstateLicense,
+                        StateProv = model.StateProv,
+                        StreetName = model.StreetName,
+                        StreetNumber = model.StreetNumber,
+                        SuiteNumber = model.SuiteNumber,
+                        TwitterLink = model.TwitterLink,
+                        WebsiteLink = model.WebsiteLink,
+                        YearsOfExp = model.YearsOfExp,
+                        ZipCode = model.ZipCode,
+                        Id = user.Id,
+                        DateCreated = DateTime.Now                       
+                    };
+
+                    db.AgentAccounts.Add(agent);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        // GET: /Account/RegisterReviewer
+        [AllowAnonymous]
+        public ActionResult RegisterReviewer() {
+            return View();
+        }
+
+        //
+        // POST: /Account/RegisterReviewer
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterReviewer(RegisterReviewerViewModel model, HttpPostedFileBase uploadImage) {
+
+            if (ModelState.IsValid) {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded) {
+                    UserManager.AddToRole(user.Id, "Reviewer");
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    var reviewer = new ReviewerAccount {
+                        Id = user.Id,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        City = model.City,
+                        StateProv = model.StateProv,
+                        ZipCode = model.ZipCode,
+                        IPAddress = GetIp()
+                    };
+
+                    db.ReviewerAccounts.Add(reviewer);
+                    db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -418,6 +510,12 @@ namespace AgentScope_Capstone_2021_2.Controllers
                     _signInManager.Dispose();
                     _signInManager = null;
                 }
+
+                if (db != null)
+                {
+                    db.Dispose();
+                    db = null;
+                }
             }
 
             base.Dispose(disposing);
@@ -481,5 +579,13 @@ namespace AgentScope_Capstone_2021_2.Controllers
             }
         }
         #endregion
+
+        public string GetIp() {
+            string ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ip)) {
+                ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            return ip;
+        }
     }
 }

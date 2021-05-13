@@ -1,0 +1,76 @@
+﻿@model AgentScope_Capstone_2021_2.Models.AgentReview
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.AgentId)
+    @Html.HiddenFor(model => model.ReviewerId)
+    @Html.HiddenFor(model => model.DateOfReview)
+    <section class="box">
+        <h2 style="text-align: center; padding-bottom: 12px">Write a review!</h2>
+        <form>
+            <div class="row gtr-uniform gtr-50" style="text-align: center">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group col-6 offset-3" >
+                    <div class="starSelection" style="text-align: center">
+                        <span class="text-warning" id="star1" onclick="onStarClick(1)">&#9734</span>
+                        <span class="text-warning" id="star2" onclick="onStarClick(2)">&#9734</span>
+                        <span class="text-warning" id="star3" onclick="onStarClick(3)">&#9734</span>
+                        <span class="text-warning" id="star4" onclick="onStarClick(4)">&#9734</span>
+                        <span class="text-warning" id="star5" onclick="onStarClick(5)">&#9734</span>
+                        <div style="display:none">
+                            @Html.RadioButtonFor(model => model.Rating, 1, new { @class = "form-control", id = "rating1" })
+                            @Html.RadioButtonFor(model => model.Rating, 2, new { @class = "form-control", id = "rating2" })
+                            @Html.RadioButtonFor(model => model.Rating, 3, new { @class = "form-control", id = "rating3" })
+                            @Html.RadioButtonFor(model => model.Rating, 4, new { @class = "form-control", id = "rating4" })
+                            @Html.RadioButtonFor(model => model.Rating, 5, new { @class = "form-control", id = "rating5" })
+                            @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-6 offset-3">
+                    @Html.TextAreaFor(model => model.BodyText, 9, 9, new { @class = "form-control", @placeholder = "Review body text" })
+                    @Html.ValidationMessageFor(model => model.BodyText, "", new { @class = "text-danger" })
+                </div>
+                <hr class="col-12" />
+                <div class="form-group col-12" style="text-align:center">
+                    <input type="submit" value="Create" class="btn btn-default" style="width: 320px"  />
+                </div>
+            </div>
+        </form>
+    </section>
+}
+
+
+@section scripts{
+
+    <script>
+
+
+        function onStarClick(star) {
+            for (let i = 1; i <= 5; i++) {
+                let ratingId = "rating" + i;
+                let element = document.getElementById(ratingId);
+                if (i == star) {
+                    element.checked = true;
+                } else {
+                    element.checked = false;
+                }
+                let curStar = "star" + i;
+                let starElement = document.getElementById(curStar);
+                if (i <= star) {
+                    starElement.innerHTML = "&#9733";
+                } else {
+                    starElement.innerHTML = "&#9734";
+                }
+            }
+        }
+
+    </script>
+}

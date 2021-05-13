@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bfea023426844b27b313bdeec9680122" Name="Diagram1">
-        <EntityTypeShape EntityType="CapstoneProjectModel.AgentAccount" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneProjectModel.AgentHomeSold" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneProjectModel.AgentReview" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CapstoneProjectModel.ReviewerAccount" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="CapstoneProjectModel.FK__AgentHome__Agent__267ABA7A" ManuallyRouted="false" />
-        <AssociationConnector Association="CapstoneProjectModel.FK__AgentRevi__Agent__2B3F6F97" ManuallyRouted="false" />
         <AssociationConnector Association="CapstoneProjectModel.FK__AgentRevi__Revie__2C3393D0" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="CapstoneProjectModel.AgentAccount" Width="1.5" PointX="0.75" PointY="3" />
+        <AssociationConnector Association="CapstoneProjectModel.FK__AgentHome__Agent__267ABA7A" />
+        <AssociationConnector Association="CapstoneProjectModel.FK__AgentRevi__Agent__2B3F6F97" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

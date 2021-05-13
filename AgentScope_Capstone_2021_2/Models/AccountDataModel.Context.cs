@@ -25,9 +25,9 @@ namespace AgentScope_Capstone_2021_2.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AgentAccount> AgentAccounts { get; set; }
         public virtual DbSet<AgentHomeSold> AgentHomeSolds { get; set; }
         public virtual DbSet<AgentReview> AgentReviews { get; set; }
         public virtual DbSet<ReviewerAccount> ReviewerAccounts { get; set; }
+        public virtual DbSet<AgentAccount> AgentAccounts { get; set; }
     }
 }

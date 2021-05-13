@@ -62,11 +62,12 @@ namespace AgentScope_Capstone_2021_2.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class RegisterAgentViewModel
     {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [StringLength(256)]
         public string Email { get; set; }
 
         [Required]
@@ -79,6 +80,113 @@ namespace AgentScope_Capstone_2021_2.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string LastName { get; set; }
+
+        [StringLength(24)]
+        public string PhoneCell { get; set; }
+
+        [StringLength(24)]
+        public string PhoneOffice { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string Company { get; set; }
+        [Required]
+
+        [StringLength(30)]
+        public string StreetNumber { get; set; }
+        [Required]
+
+        [StringLength(128)]
+        public string StreetName { get; set; }
+                
+        [StringLength(30)]
+        public string SuiteNumber { get; set; }
+
+        [Required]
+        [StringLength(48)]
+        public string City { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string StateProv { get; set; }
+
+        [Required]
+        [StringLength(48)]
+        public string ZipCode { get; set; }
+
+        public string AboutMeText { get; set; }
+
+        [Required]
+        public short YearsOfExp { get; set; }
+
+        public string WebsiteLink { get; set; }
+
+        public string FacebookLink { get; set; }
+
+        public string TwitterLink { get; set; }
+
+        public string InstagramLink { get; set; }
+
+        public string LinkedInLink { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string RealEstateLicense { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string LicensedState { get; set; }
+
+        [StringLength(1000)]
+        public string ProfileImage { get; set; }
+    }
+
+    public class RegisterReviewerViewModel {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        [StringLength(256)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(48)]
+        public string City { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string StateProv { get; set; }
+
+        [Required]
+        [StringLength(48)]
+        public string ZipCode { get; set; }
+
     }
 
     public class ResetPasswordViewModel

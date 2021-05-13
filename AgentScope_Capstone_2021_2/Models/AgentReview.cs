@@ -21,7 +21,7 @@ namespace AgentScope_Capstone_2021_2.Models
         public string BodyText { get; set; }
         public System.DateTime DateOfReview { get; set; }
     
-        public virtual AgentAccount AgentAccount { get; set; }
         public virtual ReviewerAccount ReviewerAccount { get; set; }
+        public virtual AgentAccount AgentAccount { get; set; }
     }
 }
