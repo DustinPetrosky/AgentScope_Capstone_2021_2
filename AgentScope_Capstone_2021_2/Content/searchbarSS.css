@@ -1,0 +1,94 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+* {
+    font-family: Roboto, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.searchbarContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1rem;
+}
+
+.searchbar {
+    margin: 20px;
+}
+
+    .searchbar > h3 {
+        font-weight: normal;
+    }
+
+    .searchbar > h1,
+    .searchbar > h3 {
+        color: white;
+        margin-bottom: 15px;
+        text-shadow: 0 1px #0091c2;
+    }
+
+    .searchbar > div {
+        display: inline-block;
+        position: relative;
+        filter: drop-shadow(0 1px black);
+    }
+
+        .searchbar > div:after {
+            content: "";
+            background: white;
+            width: 4px;
+            height: 8px;
+            position: absolute;
+            top: 37px;
+            right: 3px;
+            transform: rotate(135deg);
+        }
+
+        .searchbar > div > span:after {
+            content: "";
+            background: black;
+            width: 4px;
+            height: 20px;
+            position: absolute;
+            top: 40px;
+            right: -6px;
+            transform: rotate(135deg);
+        }
+
+        .searchbar > div > input {
+            color: black;
+            font-size: 21px;
+            font-weight: 400;
+            background: transparent;
+            width: 45px;
+            height: 45px;
+            padding: 10px;
+            border: solid 3px silver;
+            outline: none;
+            border-radius: 35px;
+            transition: width 0.5s;
+            background: #e0ebeb;
+        }
+
+            .searchbar > div > input::placeholder {
+                color: #efefef;
+                opacity: 0;
+                transition: opacity 150ms ease-out;
+            }
+
+            .searchbar > div > input:focus::placeholder {
+                opacity: 1;
+            }
+
+            .searchbar > div > input:focus,
+            .searchbar > div > input:not(:placeholder-shown) {
+                width: 450px;
+            }

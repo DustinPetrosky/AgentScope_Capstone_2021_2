@@ -1,141 +1,161 @@
 ﻿@model AgentScope_Capstone_2021_2.Models.AgentAccount
-
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Profile";
 }
+@section extraCss{
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/profileSS.css" rel="stylesheet" />
+}
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Page Content -->
 <div class="container">
 
     <div class="row">
         <div class="col-lg-3">
-            <div class="card mt-4 align-items-center">
-                <img class="card-img-top img-fluid" src="https://via.placeholder.com/150" alt="Profile Photo">
-                <div>
-                    <h3> Agent Name</h3>
-                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                    4.0
+            <div class="card mt-4">
+                @if (!string.IsNullOrWhiteSpace(Model.ProfileImage)) {
+                    <img class="card-img-top img-fluid" src="~/UserContent/@Model.ProfileImage" alt="Profile Photo">
+                }
+                <div id="ProfileSpotlight">
+                    <h3> @Model.FirstName @Model.LastName</h3>
+                    @{
+                        if (Model.YearsOfExp > 1) {
+                            <p>(@Model.YearsOfExp Years of Experience)</p>
+                        } else if (Model.YearsOfExp == 1) {
+                            <p>(@Model.YearsOfExp Year of Experience)</p>
+                        } else {
+                            <p>(New Agent)</p>
+                        }
+                        double? rating = Model.avgRating();
+                    }
+                    <span class="text-warning">
+                        @if (rating != null) {
+
+                            for (int i = 1; i <= 5; i++) {
+                                if (rating >= i) {
+                                    @:&#9733;
+                                } else {
+                                    @:&#9734;
+                                }
+                            }
+                        }
+                    </span>
+                    @(rating?.ToString("f1"))
                 </div>
             </div>
-            <div class="card">
-                Brokerage: RealEstateBrokerage
-
-                <p><i class="fa fa-map-marker w3-xxlarge w3-text-red"></i>New York City</p>
+            <div class="card" id="agentInfo">
+                <p>Email: @Model.Email</p>
+                @{
+                    if (Model.PhoneCell != null && Model.PhoneCell != "") {
+                        <p>Cell: @Model.PhoneCell</p>
+                    }
+                    if (Model.PhoneOffice != null && Model.PhoneOffice != "") {
+                        <p>Cell: @Model.PhoneOffice</p>
+                    }
+                    if (Model.SuiteNumber != null) {
+                        <p>Brokerage: @Model.Company</p>
+                        <p>Address: @Model.StreetNumber @Model.StreetName Suite # @Model.SuiteNumber @Model.City, @Model.StateProv @Model.ZipCode </p>
+                    } else {
+                        <p>Brokerage: @Model.Company</p>
+                        <p>Address: @Model.StreetNumber @Model.StreetName @Model.City, @Model.StateProv @Model.ZipCode </p>
+                    }
+                }
+                <p>Years of Experience: @Model.YearsOfExp</p>
+                <p>License: @Model.RealEstateLicense (@Model.LicensedState)</p>
 
                 <div class="w3-panel w3-large w3-center">
-                    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-                    <i class="fa fa-instagram w3-hover-opacity"></i>
-                    <i class="fa fa-snapchat w3-hover-opacity"></i>
-                    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-                    <i class="fa fa-twitter w3-hover-opacity"></i>
-                    <i class="fa fa-linkedin w3-hover-opacity"></i>
+                    @{
+                        var linkProtocol = "https://";
+                        if (Model.WebsiteLink != null) {
+                            var link = Model.WebsiteLink;
+                            if (!Model.WebsiteLink.ToLower().Contains("https://")) {
+                                link = linkProtocol + link;
+                                <a href="@link"><i class="fa fa-globe w3-hover-opacity"></i></a>
+                            } else {
+                                <a href="@link"><i class="fa fa-globe w3-hover-opacity"></i></a>
+                            }
+                        }
+                        if (Model.FacebookLink != null) {
+                            var link = Model.FacebookLink;
+                            if (!Model.FacebookLink.ToLower().Contains("https://")) {
+                                link = linkProtocol + link;
+                                <a href="@link"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+                            } else {
+                                <a href="@link"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+                            }
+                        }
+                        if (Model.InstagramLink != null) {
+                            var link = Model.InstagramLink;
+                            if (!Model.InstagramLink.ToLower().Contains("https://")) {
+                                link = linkProtocol + link;
+                                <a href="@link"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+                            } else {
+                                <a href="@link"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+                            }
+                        }
+                        if (Model.TwitterLink != null) {
+                            var link = Model.TwitterLink;
+                            if (!Model.TwitterLink.ToLower().Contains("https://")) {
+                                link = linkProtocol + link;
+                                <a href="@link"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+                            } else {
+                                <a href="@link"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+                            }
+                        }
+                        if (Model.LinkedInLink != null) {
+                            var link = Model.LinkedInLink;
+                            if (!Model.LinkedInLink.ToLower().Contains("https://")) {
+                                link = linkProtocol + link;
+                                <a href="@link"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+                            } else {
+                                <a href="@link"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+                            }
+                        }
+                    }
                 </div>
             </div>
+            @{ if (User.IsInRole("Agent") && Model.Id == User.Identity.GetUserId()) {
+                    <div class="card">
+                        @Html.ActionLink("Edit Profile", "Edit", null, new { @class = "btn btn-success" })
+
+                    </div>
+                }
+            }
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
+            @if (!string.IsNullOrWhiteSpace(Model.AboutMeText)) {
             <div class="card mt-4">
                 <h3 class="card-title text-center"> About Me</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.
-                </p>
+                <hr id="abtDivider"/>
+                <p style="text-align: center">@Model.AboutMeText</p>
             </div>
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h3 class="card-title text-center">Recently Sold Homes</h3>
-                    <!-- First Photo Grid-->
-                    <div class="w3-row-padding">
-                        <div class="w3-third w3-container w3-margin-bottom">
-                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <p><b>$xxx,xxx</b></p>
-                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                            </div>
-                        </div>
-                        <div class="w3-third w3-container w3-margin-bottom">
-                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <p><b>$xxx,xxx</b></p>
-                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                            </div>
-                        </div>
-                        <div class="w3-third w3-container">
-                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <p><b>$xxx,xxx</b></p>
-                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Second Photo Grid-->
-                    <div class="w3-row-padding">
-                        <div class="w3-third w3-container w3-margin-bottom">
-                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <p><b>$xxx,xxx</b></p>
-                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                            </div>
-                        </div>
-                        <div class="w3-third w3-container w3-margin-bottom">
-                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <p><b>$xxx,xxx</b></p>
-                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                            </div>
-                        </div>
-                        <div class="w3-third w3-container">
-                            <img src="https://via.placeholder.com/150" alt="Norway" style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <p><b>$xxx,xxx</b></p>
-                                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="w3-center w3-padding-32">
-                        <div class="w3-bar">
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-                            <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-                        </div>
+                    }
+                <div class="card mt-4">
+                    <div class="card-header text-center">Recently Sold Homes</div>
+                    <div class="card-body">
+                        
+                            @if (User.IsInRole("Agent") && Model.Id == User.Identity.GetUserId()) {
+                                <div class="card" style="margin-bottom: 9px">
+                                     @Html.ActionLink("Add home", "Create", "AgentHomeSolds", null, new { @class = "btn btn-success" })
+                                </div>
+                            }
+                        @Html.Action("Index", "AgentHomeSolds", new { id = Model.Id, page = ViewBag.pageNumber, home_pageSize = 6 })
                     </div>
                 </div>
-            </div>
-            <!-- /.card -->
+                <!-- /.card -->
 
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    Agent Reviews
+                <div class="card card-outline-secondary my-4">
+                    @Html.Action("Index", "AgentReviews", new { id = Model.Id, page = ViewBag.pageNumber, rev_pageSize = 3 })
                 </div>
-                <div class="card-body">
-                    <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
-                </div>
-            </div>
-            <!-- /.card -->
+                <!-- /.card -->
 
-        </div>
+            </div>
         <!-- /.col-lg-9 -->
 
     </div>

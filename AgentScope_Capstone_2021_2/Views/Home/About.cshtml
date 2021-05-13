@@ -1,7 +1,47 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<section class="box special">
+    <header class="major">
+        <h2>
+            What is AgentScope?
+        </h2>
+        <p>
+            Have you ever wasted time with a real estate agent where they didn't communicate with you throughout the home buying or selling process 
+            or they dropped the ball during negotiations? AgentScope's here to help!
+        </p>
+        <p style="border: none; font-size: 1.25em">
+            We provide a single point to review agents, so you can analyze the agent's past interactions with their clients to give a better understanding 
+            of how well they perform as an agent.
+        </p>
+    </header>
+</section>
+
+
+<div class="row">
+    <div class="col-6 col-12-narrower">
+
+        <section class="box special">
+            <span class="image featured" style="text-align: -webkit-center"><img src="~/images/profile photo.jpg" alt="Agent" style="border-radius: 50%; width: 27%"/></span>
+            <h3>Agents</h3>
+            <p>Agents are able to make a profile, display their information, reviews, and recently sold homes!</p>
+            <ul class="actions special">
+                <li>@Html.ActionLink("Sign Up", "RegisterAgent", "Account", routeValues: null, htmlAttributes: new { @class = "button alt", id = "registerLink" })</li>
+            </ul>
+        </section>
+
+    </div>
+    <div class="col-6 col-12-narrower">
+
+        <section class="box special">
+            <span class="image featured" style="text-align: -webkit-center"><img src="~/images/couple-silhouette.png" alt="Couple" style="border-radius: 39%; width: 50%"/></span>
+            <h3>Reviewers</h3>
+            <p>Reviewers are able to register and write a review on an agents profile detailing the experience the agent provided during their home buying/selling process!</p>
+            <ul class="actions special">
+                <li>@Html.ActionLink("Sign Up", "RegisterReviewer", "Account", routeValues: null, htmlAttributes: new { @class = "button alt", id = "registerLink" })</li>
+            </ul>
+        </section>
+
+    </div>
+</div>

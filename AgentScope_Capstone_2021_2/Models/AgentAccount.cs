@@ -44,6 +44,7 @@ namespace AgentScope_Capstone_2021_2.Models
         public string RealEstateLicense { get; set; }
         public string LicensedState { get; set; }
         public string ProfileImage { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentHomeSold> AgentHomeSolds { get; set; }

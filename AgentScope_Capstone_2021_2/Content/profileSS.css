@@ -1,0 +1,15 @@
+﻿div#ProfileSpotlight {
+    text-align: center;
+}
+#abtDivider {
+    margin-top: -6px;
+}
+
+.card {
+    border: 3px solid rgba(0, 0, 0, 0.125);
+}
+
+#agentInfo {
+    margin-top: -3px;
+    padding: inherit;
+}

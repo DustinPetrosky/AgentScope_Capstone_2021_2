@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AgentScope_Capstone_2021_2.Models.AgentAccount>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+@section extraCss{
+    <link href="~/Content/agentsearch-ss.css" rel="stylesheet" />
+    }
+
+<table class="table" id="searchTable">
+    <tr>
+        <th id="resultsHeader"style="text-align:center" colspan="2">
+            Agent Search: "@ViewBag.keyword"
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    var profileUrl = Url.Action("Profile", "Agent", new { id = item.Id });
+    <tr onclick="location.href='@profileUrl'" class="clickable">
+        
+        <td id="profileCell" style="text-align:center">           
+            @if (item.ProfileImage == null) {
+                <img src="~/images/profile photo.jpg" alt="@item.FirstName + @item.LastName" style="width:125px; height: 125px; border-radius: 50%">
+            } else {
+                <img src="~/UserContent/@item.ProfileImage" alt="@item.FirstName + @item.LastName" style="width:125px; height: 125px; border-radius: 50%">
+            }             
+        <p id="searchStars">
+            @{
+                double? rating = item.avgRating();
+
+                <span class="text-warning">
+                    @for (int i = 1; i <= 5; i++) {
+                        if (rating >= i) {
+                            @:&#9733;
+                        } else {
+                            @:&#9734;
+                        }
+                    }
+                </span>
+                rating?.ToString("f1");
+            }
+        </p>
+            <p id="revTotal">
+               Out of @item.AgentReviews.Count() reviews
+            </p>
+        </td>
+        <td>
+            <p id="agentName">
+                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.LastName)
+            </p>
+            <p id="phone_text">
+                @{ 
+                    if (!string.IsNullOrWhiteSpace(item.PhoneCell)) {
+                    @: Phone#: @Html.DisplayFor(modelItem => item.PhoneCell)
+                    }
+                }
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.YearsOfExp) Years of experience
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.Company)
+            </p>
+            @Html.DisplayFor(modelItem => item.City),
+            @Html.DisplayFor(modelItem => item.StateProv)
+        </td>
+    </tr>
+}
+
+</table>

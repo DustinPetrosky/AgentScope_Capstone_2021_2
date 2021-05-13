@@ -1,0 +1,20 @@
+﻿<div class="searchbarContainer">
+    <div class="searchbar">
+        <div>
+            <input type="text" placeholder="Search . . ." id="searchbarID" required autocomplete="off">
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchBar = document.querySelector('#searchbarID');
+    searchBar.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            let searchUrl = '@Url.Action("Search", "Agent", new { id = (string) null })';          
+            searchUrl = searchUrl + '/' + encodeURI(searchBar.value);
+            location.href = searchUrl;
+        }
+
+    });
+</script>
